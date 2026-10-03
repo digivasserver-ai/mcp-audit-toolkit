@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>MCP Server Audit — Digivas Software</title>
+<meta name="description" content="Independent correctness and exposure audit for MCP servers. Every advertised tool called as a real client, cross-checked against ground truth. Findings with reproduction commands; fixes as pull requests with regression tests.">
+<style>
+:root{--bg:#0d1117;--fg:#e6edf3;--mut:#8b949e;--acc:#3fb950;--warn:#d29922;--hi:#f85149;--card:#161b22;--line:#30363d;--max:880px}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--fg);font:16px/1.65 -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif}
+.wrap{max-width:var(--max);margin:0 auto;padding:0 22px}
+header{border-bottom:1px solid var(--line);padding:54px 0 40px}
+h1{font-size:2.1rem;margin:0 0 10px;letter-spacing:-.02em}
+.sub{color:var(--mut);font-size:1.05rem;margin:0}
+.tags{margin-top:20px;display:flex;gap:8px;flex-wrap:wrap}
+.tag{background:var(--card);border:1px solid var(--line);border-radius:999px;padding:4px 12px;font-size:.82rem;color:var(--mut)}
+h2{font-size:1.25rem;margin:44px 0 12px;letter-spacing:-.01em}
+p{margin:0 0 14px}
+.lead{font-size:1.08rem}
+table{width:100%;border-collapse:collapse;margin:18px 0;font-size:.94rem}
+th,td{text-align:left;padding:9px 12px;border-bottom:1px solid var(--line);vertical-align:top}
+th{color:var(--mut);font-weight:600;font-size:.82rem;text-transform:uppercase;letter-spacing:.06em}
+tr.h td:first-child{color:var(--hi);font-weight:600}
+tr.m td:first-child{color:var(--warn);font-weight:600}
+tr.o td:first-child{color:var(--acc);font-weight:600}
+pre{background:var(--card);border:1px solid var(--line);border-radius:6px;padding:14px 16px;overflow-x:auto;font-size:.86rem}
+code{font-family:ui-monospace,SFMono-Regular,Menlo,monospace}
+p code,li code,td code{background:var(--card);padding:1px 5px;border-radius:4px;font-size:.9em}
+.cards{display:grid;gap:14px;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));margin:20px 0}
+.card{background:var(--card);border:1px solid var(--line);border-radius:8px;padding:16px 18px}
+.card h3{margin:0 0 6px;font-size:1rem}
+.card p{margin:0;color:var(--mut);font-size:.92rem}
+.cta{background:var(--card);border:1px solid var(--line);border-radius:10px;padding:26px 28px;margin:40px 0}
+.cta h2{margin-top:0}
+a{color:#58a6ff}
+.price{font-size:1.05rem}
+.price b{color:var(--fg)}
+footer{border-top:1px solid var(--line);margin-top:56px;padding:26px 0 46px;color:var(--mut);font-size:.88rem}
+.note{color:var(--mut);font-size:.9rem}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+<header>
+  <h1>MCP Server Audit</h1>
+  <p class="sub">Are the tools your AI agent depends on actually working — and is anything leaking?</p>
+  <div class="tags">
+    <span class="tag">Fixed scope</span>
+    <span class="tag">5 business days</span>
+    <span class="tag">Every tool called as a real client</span>
+    <span class="tag">Findings + fix PRs</span>
+  </div>
+</header>
+
+<h2>The problem</h2>
+<p class="lead">MCP has no conformance test. A server can advertise any schema it likes, and a client
+cannot distinguish <em>tool works</em> from <em>tool has never worked</em> from <em>tool is broken on
+my platform</em>. Every one of those looks like success at the protocol level and failure at the value
+level, so an agent inherits the defect silently.</p>
+
+<p>In the audit behind this page: <strong>9 of 22 advertised tools were broken or degraded</strong>,
+while the server's own health check reported itself healthy. Three tools raised <code>TypeError</code>
+on every call. All findings were fixed upstream with regression tests — see the
+<a href="https://github.com/digivasserver-ai/mcp-audit-toolkit/blob/main/docs/SAMPLE-AUDIT.md">redacted sample report</a>.</p>
+
+<h2>What you get</h2>
+<div class="cards">
+  <div class="card"><h3>Tool health matrix</h3><p>Every advertised tool called over stdio exactly as a client connects. Verdict per tool: works, broken, or platform-degraded.</p></div>
+  <div class="card"><h3>Schema vs implementation</h3><p>Static diff of advertised parameters against the signatures the dispatcher actually calls. Catches tools that have never worked.</p></div>
+  <div class="card"><h3>Platform path drift</h3><p>Paths and binaries validated against your real target OS — not the maintainer's distribution.</p></div>
+  <div class="card"><h3>Dependency reality</h3><p>Tools that shell out to binaries absent from minimal images, reported as "not found" while the binary works.</p></div>
+  <div class="card"><h3>Credential exposure</h3><p>Values fingerprinted by sha256 and hunted across git history, reflog, DBs, logs and archives. The value is never printed.</p></div>
+  <div class="card"><h3>Fix pull requests</h3><p>Optional. Fixes with regression tests written red first, so the defect is demonstrably reproducible and demonstrably gone.</p></div>
+</div>
+
+<h2>Recent findings, by class</h2>
+<table>
+<thead><tr><th style="width:22%">Severity</th><th>Finding</th><th style="width:34%">Detection</th></tr></thead>
+<tbody>
+<tr class="h"><td>High</td><td>Dispatcher drift — advertised schema maps to a function signature that does not exist, so the tool raises <code>TypeError</code> on every call</td><td>schema↔signature diff</td></tr>
+<tr class="h"><td>High</td><td>Platform path drift — config readers hard-coded to the wrong distribution's paths and return empty results instead of erroring</td><td>run against the real target OS</td></tr>
+<tr class="h"><td>High</td><td>Shell-dependency drift — command detection shells out to a binary absent from minimal images, so working commands report as not found</td><td>run in a container / minimal image</td></tr>
+<tr class="m"><td>Medium</td><td>Health check reports healthy while its own components are broken</td><td>cross-check aggregate against components</td></tr>
+<tr class="m"><td>Medium</td><td>Documented parameters unreachable because of argument binding</td><td>schema↔signature diff</td></tr>
+<tr class="m"><td>Medium</td><td>Environment-dependent output presented as system fact (blank hostname, wrong uptime)</td><td>validate values against ground truth</td></tr>
+</tbody>
+</table>
+
+<h2>How it runs</h2>
+<pre><code>1.  You provide read-only access to the server (or a copy) and its intended environment
+2.  We probe all tools over stdio / HTTP exactly as a client would
+3.  Static cross-check of advertised schemas against handler signatures
+4.  Filesystem paths and commands validated against the real target OS
+5.  Credential fingerprint scan — values fingerprinted, never printed
+6.  Report delivered, with a prioritized fix list and reproduction per finding</code></pre>
+
+<h2>Pricing</h2>
+<p class="price">Adaptable per scope — quoted against the checklist above.
+<b>Pilot from $250</b> · <b>Standard from $750</b> (one server) · <b>Deep from $2,000</b> (multi-server + CI).
+Microsoft Marketplace customers: transacted via Private Offer. Direct: PayPal (USD) or invoice.</p>
+
+<div class="cta">
+  <h2>Send us the server</h2>
+  <p>Reply with the repository or endpoint and the environment it runs in. We scope it in one reply —
+  usually within a day, and free of charge for the scoping itself.</p>
+  <p><a href="mailto:divivas.server@gmail.com"><strong>divivas.server@gmail.com</strong></a></p>
+  <p class="note">Digivas Software — registered South African business. Findings are reported as correctness issues
+  unless they carry genuine security impact. A tool that always throws is a bug; it is not dressed up as a CVE.</p>
+</div>
+
+<h2>Do it yourself</h2>
+<p>The methodology and two working tools are open source under MIT:
+<a href="https://github.com/digivasserver-ai/mcp-audit-toolkit">digivasserver-ai/mcp-audit-toolkit</a> —
+an MCP stdio health probe, a fingerprint-based credential leak scanner, and
+<a href="https://github.com/digivasserver-ai/mcp-audit-toolkit/blob/main/docs/METHODOLOGY.md">the methodology</a>.</p>
+
+<footer>
+  Sample report findings are reproducible against the public repository audited.
+  Methodology and tooling MIT licensed.
+</footer>
+
+</div>
+</body>
+</html>

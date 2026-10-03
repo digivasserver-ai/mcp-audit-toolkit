@@ -38,6 +38,19 @@ Output classes: `PUBLISHED` (present in git history already pushed), `LOCAL` (on
 
 Regex catches shapes and misses the value you actually rotated in. Fingerprinting catches *that* credential everywhere, including the places nobody thinks to grep: SQLite WAL files, session databases, and compressed backups.
 
+## Audit service
+
+The same work is available as a fixed-scope engagement: every advertised tool called over stdio the
+way a client connects, schema↔signature diff, platform path and dependency validation against your
+real target OS, and a credential fingerprint scan.
+
+- **Sample report (redacted):** [`docs/SAMPLE-AUDIT.md`](docs/SAMPLE-AUDIT.md) — 9 of 22 tools broken
+  or degraded in the audited server, all fixed upstream with regression tests.
+- **Landing page:** [`docs/index.html`](docs/index.html) — servable as-is via GitHub Pages.
+- Pricing adaptable per scope: pilot from $250, standard (one server) from $750, deep (multi-server + CI)
+  from $2,000. Microsoft Marketplace customers via Private Offer. Direct: PayPal (USD) or invoice.
+- Scope and contact: divivas.server@gmail.com
+
 ## Provenance
 
 Developed and tested on an aarch64 openSUSE Tumbleweed proot terminal, against the live `suse-mcp` server. Findings were disclosed upstream as pull requests with fixes and regression tests; no vulnerability was claimed, because the issues found were correctness bugs rather than security issues. `docs/OPENSUSE-MCP-LANDSCAPE.md` is an independent inventory of the MCP work happening in the SUSE ecosystem, written so the project can see its own position clearly.
