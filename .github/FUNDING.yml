@@ -1,0 +1,8 @@
+# Funding for mcp-audit-toolkit
+# Activate in this order (all are user actions in the GitHub web UI):
+# 1. GitHub Sponsors profile for digivasserver-ai (Stripe + ZA payout)
+# 2. Polar org (polar.sh) linked to this repo, then uncomment the polar line
+# 3. Optional: ko-fi / liberapay for one-off tips
+github: digivasserver-ai
+# polar: digivasserver-ai
+# custom: ["https://polar.sh/digivasserver-ai"]

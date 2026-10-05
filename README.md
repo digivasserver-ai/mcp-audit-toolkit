@@ -51,6 +51,19 @@ real target OS, and a credential fingerprint scan.
   from $2,000. Microsoft Marketplace customers via Private Offer. Direct: PayPal (USD) or invoice.
 - Scope and contact: divivas.server@gmail.com
 
+## Support / funding
+
+This toolkit is maintained work: see [`MAINTENANCE.md`](MAINTENANCE.md)
+for the triage pledge, release cadence, and weekly health signal.
+
+- GitHub Sponsors and Polar via the repo's Sponsor button
+  (`.github/FUNDING.yml`) — monthly maintenance pledges keep the
+  SUSE MCP gateway installable, callable, and correct on Tumbleweed.
+- One-off: pilot audit from $250 (see Audit service above).
+
+Funding status: Sponsors/Polar profiles are user-activated (not yet live).
+Grant track: NLnet NGI0 Commons, Sovereign Tech Fund, GitHub Secure OSS Fund.
+
 ## Provenance
 
 Developed and tested on an aarch64 openSUSE Tumbleweed proot terminal, against the live `suse-mcp` server. Findings were disclosed upstream as pull requests with fixes and regression tests; no vulnerability was claimed, because the issues found were correctness bugs rather than security issues. `docs/OPENSUSE-MCP-LANDSCAPE.md` is an independent inventory of the MCP work happening in the SUSE ecosystem, written so the project can see its own position clearly.
