@@ -45,5 +45,19 @@ git log --oneline -5           # release cadence
 ```
 
 Funding (user activates): GitHub Sponsors + Polar via `.github/FUNDING.yml`.
-Grants target: NLnet NGI0 Commons (next deadline Nov 3 2026, €5k–50k),
-Sovereign Tech Fund (min €50k costs), GitHub Secure OSS Fund ($10k rolling).
+
+Grants (corrected 2026-10-06 — the previous version of this line named the
+wrong fund and would have sent an applicant to a closed programme):
+
+- NLnet applies anyone, anywhere: individuals, companies of any size.
+  €5,000–€50,000, cost-recovery not commercial. Deadlines on the **3rd of every
+  odd month** — next: **3 Nov 2026**, then 3 Jan 2027, 3 Mar 2027. Short form at
+  https://nlnet.nl/propose
+- **NGI Zero Commons Fund is CLOSED** — 13th and final call closed 1 Jun 2026.
+  Do not pitch to it. The widely-repeated "Nov 3 2026 NGI0 Commons" deadline
+  traces to grant aggregators, not NLnet.
+- The live Nov 3 2026 call is **Restack** and **CodeSupply**. Restack states
+  "AI-related projects are not in scope with one specific exception", so an
+  MCP-framed proposal is at risk. CodeSupply (software supply chain
+  metadata/data) is the better fit for the credential-fingerprint scanner.
+  Details: /root/dev-lab-memory/wiki/grants-2026-11.md
