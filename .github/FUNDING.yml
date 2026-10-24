@@ -1,8 +1,11 @@
 # Funding for mcp-audit-toolkit
+# No sponsor button until a listing exists: GitHub Sponsors is not enabled for
+# this account (`hasSponsorsListing: false`), so `github:` would render a button
+# that redirects back to the profile.
 # Activate in this order (all are user actions in the GitHub web UI):
 # 1. GitHub Sponsors profile for digivasserver-ai (Stripe + ZA payout)
 # 2. Polar org (polar.sh) linked to this repo, then uncomment the polar line
 # 3. Optional: ko-fi / liberapay for one-off tips
-github: digivasserver-ai
+# github: digivasserver-ai
 # polar: digivasserver-ai
 # custom: ["https://polar.sh/digivasserver-ai"]
