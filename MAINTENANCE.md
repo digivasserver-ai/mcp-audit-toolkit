@@ -60,4 +60,4 @@ wrong fund and would have sent an applicant to a closed programme):
   "AI-related projects are not in scope with one specific exception", so an
   MCP-framed proposal is at risk. CodeSupply (software supply chain
   metadata/data) is the better fit for the credential-fingerprint scanner.
-  Details: /root/dev-lab-memory/wiki/grants-2026-11.md
+  Sources are NLnet's own call pages, not aggregator summaries.
