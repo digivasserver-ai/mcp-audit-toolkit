@@ -49,7 +49,7 @@ real target OS, and a credential fingerprint scan.
 - **Landing page:** [`docs/index.html`](docs/index.html) — servable as-is via GitHub Pages.
 - Pricing adaptable per scope: pilot from $250, standard (one server) from $750, deep (multi-server + CI)
   from $2,000. Microsoft Marketplace customers via Private Offer. Direct: PayPal (USD) or invoice.
-- Scope and contact: divivas.server@gmail.com
+- Scope and contact: digivas.server@gmail.com
 
 ## Support / funding
 
